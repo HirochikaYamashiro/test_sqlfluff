@@ -5,7 +5,7 @@ select
   ,COUNT(*) AS uu
 FROM
   `hgym-340203.dl_service_app_main.chocozap_referral_code_histories` AS i
-LEFT JOIN
+left JOIN
   `hgym-340203.dl_service_app_main.chocozap_referral_codes` AS j
 ON
   i.referral_code_id=j.id
