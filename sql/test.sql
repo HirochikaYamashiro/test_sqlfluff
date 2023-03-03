@@ -7,7 +7,7 @@ FROM
   `hgym-340203.dl_service_app_main.chocozap_referral_code_histories` AS i
 LEFT JOIN
   `hgym-340203.dl_service_app_main.chocozap_referral_codes` AS j
-on
+ON
   i.referral_code_id=j.id
 GROUP BY
   1,2
