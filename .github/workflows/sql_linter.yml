@@ -42,7 +42,7 @@ jobs:
           sqlfluff_version: "1.4.5"
           sqlfluff_command: "fix" # Or "lint"
           config: "${{ github.workspace }}/.sqlfluff"
-          paths: '${{ github.workspace }}/models'
+          paths: '${{ github.workspace }}/sql'
       - name: 'Show outputs (Optional)'
         shell: bash
         run: |
