@@ -1,6 +1,6 @@
 with referral_data as (
 select
-  referred_user_id zap_id
+  referred_user_id AS zap_id
   ,referral_code
   ,COUNT(*) AS uu
 FROM
