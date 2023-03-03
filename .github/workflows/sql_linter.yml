@@ -4,8 +4,8 @@ name: SQLFluff
 # .sql ファイルの変更を含む Pull Request の Opened もしくは Reopened をトリガーとする
 on:
   workflow_dispatch:
-  pull_request: 
-    types: [opened, reopened]  
+  push: 
+    # types: [opened, reopened]  
     branches:
       - sql_test_merge
     paths:
