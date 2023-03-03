@@ -3,11 +3,10 @@ name: SQLFluff
 
 # .sql ファイルの変更を含む Pull Request の Opened もしくは Reopened をトリガーとする
 on:
-  workflow_dispatch:
   pull_request: 
-    types: [opened, reopened] 
+    types: [pull_request] 
     paths:
-      - '**.sql'
+      - 'sql/**.sql'
 
 # .sql ファイルを整形(変更)する権限を付与
 permissions: write-all
@@ -23,7 +22,7 @@ jobs:
             python-version: '3.8'
       # SQLFluff をインストール
       - name: install SQLFluff
-        run: 'pip install sqlfluff==0.13.1'
+        run: 'pip install sqlfluff==1.4.5'
       # Github のホストランナーでは TTY が使えないため faketty をインストール
       - name: setup faketty
         uses: Yuri6037/Action-FakeTTY@v1.1
@@ -37,10 +36,10 @@ jobs:
         run: |
           for file in $(git diff origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --name-only --diff-filter=d -- '*.sql') 
           do
-            faketty sqlfluff fix $file --dialect bigquery -f
+            faketty sqlfluff fix $file --config .sqlfluff --dialect bigquery -f
           done
       # 変更内容をコミット
       - name: commit
-        uses: stefanzweifel/git-auto-commit-action@v3.0.0
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: run sqlfluff```
+          commit_message: fix sql format
