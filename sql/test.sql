@@ -17,7 +17,7 @@ select
   ,referral_data.referral_code
 from
   `hgym-340203.dl_service_app_main.users` as base
-left outer join
+LEFT outer join
   referral_data
 on
   base.id = referral_data.zap_id
