@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push: 
     branches:
-      - master
+      - sql_test_merge
     paths:
       - 'sql/**.sql'
 
