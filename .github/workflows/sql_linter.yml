@@ -25,7 +25,7 @@ jobs:
             python-version: '3.8'
       # SQLFluff をインストール
       - name: install SQLFluff
-        run: 'pip install sqlfluff==1.4.5'
+        run: 'pip install sqlfluff==0.13.1'
       # Github のホストランナーでは TTY が使えないため faketty をインストール
       - name: setup faketty
         uses: Yuri6037/Action-FakeTTY@v1.1
