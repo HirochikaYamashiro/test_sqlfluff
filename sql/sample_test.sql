@@ -16,7 +16,7 @@ load_ec_order as (
 )
 
 , join_customers as (
-    SELECT 
+    select
         ec_order.total_price
         , cast(extract(month from ec_order.created_at) as string) as month
         , cast(extract(year from ec_order.created_at) as string) as year
