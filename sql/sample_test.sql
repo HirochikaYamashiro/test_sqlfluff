@@ -1,4 +1,4 @@
-with 
+with
 load_ec_order as (
     select distinct
         order_id
