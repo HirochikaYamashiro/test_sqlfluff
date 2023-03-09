@@ -1,4 +1,5 @@
-with load_ec_order as (
+with 
+load_ec_order as (
   select distinct
     order_id
     , customer_id
@@ -7,13 +8,11 @@ with load_ec_order as (
   from
     `chocozap-ec.dl_shopify.order`
 )
-
 , load_customer as (
   select *
   from `chocozap-ec.dl_shopify.customer_*`
   where num_orders <> 0
 )
-
 , join_customers as (
   SELECT 
     ec_order.total_price
@@ -26,7 +25,7 @@ with load_ec_order as (
       end as gender
     , IF(round_age >= 70, '70以上', cast(round_age as string)) AS round_age
   FROM 
-    load_ec_order ec_order
+    load_ec_order as ec_order
   INNER join (select email, customer_id from load_customer) ec_customer 
     using(customer_id)
   inner join (
@@ -38,7 +37,6 @@ with load_ec_order as (
     ) as choco_customer
     on ec_customer.email = choco_customer.mail_address
 )
-
 , calc_price as (
   select 
     year
@@ -51,7 +49,6 @@ with load_ec_order as (
   where gender <> 'その他'
   group by year, month, gender, round_age
 )
-
 , calc_gender_total as (
   select 
     year
@@ -64,7 +61,6 @@ with load_ec_order as (
   where gender <> 'その他'
   group by year, month, round_age
 )
-
 , calc_age_total as (
   select 
     year
@@ -77,10 +73,8 @@ with load_ec_order as (
   where gender <> 'その他'
   group by year, month, gender
 )
-
 , calc_month_total as (
-  select
-    '小計' as year
+  select '小計' as year
     , '小計' as month
     , gender
     , round_age
@@ -90,7 +84,6 @@ with load_ec_order as (
   where gender <> 'その他'
   group by gender, round_age
 )
-
 , calc_month_age_total as (
   select
     '小計' year
