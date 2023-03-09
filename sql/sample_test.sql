@@ -8,6 +8,7 @@ load_ec_order as (
   from
     `chocozap-ec.dl_shopify.order`
 )
+
 , load_customer as (
   select 
     *
