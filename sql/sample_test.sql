@@ -1,5 +1,4 @@
-with 
-load_ec_order as (
+with load_ec_order as (
     select distinct
         order_id
         , customer_id
