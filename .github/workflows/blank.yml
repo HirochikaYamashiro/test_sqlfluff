@@ -1,0 +1,33 @@
+name: sqlfluff_linter_test
+on:
+  pull_request:
+    types: [opened, reopened]  
+    branches:
+      - sql_test_merge
+    paths:
+      - 'sql/**.sql'
+permissions:
+  checks: write
+  contents: write
+  issues: write
+  pull-requests: write
+jobs:
+  test-check:
+    name: runner / sqlfluff (github-check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: yu-iskw/action-sqlfluff@v3
+        id: lint-sql
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          sqlfluff_version: "1.4.5"
+          sqlfluff_command: "lint" # Or "lint"
+          config: "${{ github.workspace }}/.sqlfluff"
+          paths: '${{ github.workspace }}/sql'
+      - name: 'Show outputs (Optional)'
+        shell: bash
+        run: |
+          echo '${{ steps.lint-sql.outputs.sqlfluff-results }}' | jq -r '.'
+          echo '${{ steps.lint-sql.outputs.sqlfluff-results-rdjson }}' | jq -r '.'
