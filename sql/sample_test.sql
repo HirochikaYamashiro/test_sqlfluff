@@ -47,7 +47,7 @@ load_ec_order as (
 )
 
 , calc_price as (
-    select 
+    select
         year
         , month
         , gender
