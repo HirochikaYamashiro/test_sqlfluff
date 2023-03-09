@@ -22,11 +22,11 @@ load_ec_order as (
         , cast(extract(year from ec_order.created_at) as string) as year
         , case gender
             when 1 then '男性'
-            when 2 then '女性' 
+            when 2 then '女性'
             else 'その他'
-            end as gender
-        , IF(round_age >= 70, '70以上', cast(round_age as string)) AS round_age
-    FROM 
+        end as gender
+        , if(round_age >= 70, '70以上', cast(round_age as string)) as round_age
+    from
         load_ec_order as ec_order
     INNER join (
         select 
