@@ -60,7 +60,7 @@ load_ec_order as (
 )
 
 , calc_gender_total as (
-    select 
+    select
         year
         , month
         , '小計' as gender
