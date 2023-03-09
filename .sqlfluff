@@ -1,8 +1,37 @@
 [sqlfluff]
+# 適用するSQLの種類
 dialect = bigquery
+# 適用しないルール
+exclude_rules = L25, L029, L031, L034, L042, L046
 
 [sqlfluff:layout:type:comma]
+# カンマの位置は前
 line_position = leading
 
 [sqlfluff:rules]
+# タブ、スペースのサイズは4
 tab_space_size = 4
+
+[sqlfluff:indentation]
+# JOINではインデントしない
+indented_joins = False
+# ONではインデント
+indented_using_on = True
+
+[sqlfluff:rules:L003]
+# インデントは空白で固定
+indent_unit = space
+
+[sqlfluff:rules:L010]
+# 予約語は小文字
+capitalisation_policy = lower
+
+[sqlfluff:rules:L016]
+# 最大列長は120,コメントは除外
+max_line_length = 120
+ignore_comment_lines = True
+indent_unit = space
+
+[sqlfluff:rules:L030]
+# 関数名をすべて小文字
+extended_capitalisation_policy = lower
