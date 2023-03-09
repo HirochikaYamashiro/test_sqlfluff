@@ -73,7 +73,7 @@ load_ec_order as (
 )
 
 , calc_age_total as (
-    select 
+    select
         year
         , month
         , gender
@@ -86,7 +86,8 @@ load_ec_order as (
 )
 
 , calc_month_total as (
-    select '小計' as year
+    select
+        '小計' as year
         , '小計' as month
         , gender
         , round_age
@@ -99,7 +100,7 @@ load_ec_order as (
 
 , calc_month_age_total as (
     select
-        '小計' year
+        '小計' as year
         , '小計' as month
         , gender
         , '小計' as round_age
