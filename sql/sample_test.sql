@@ -1,12 +1,11 @@
-with 
-load_ec_order as (
-  select distinct
-    order_id
-    , customer_id
-    , created_at
-    , total_price
-  from
-    `chocozap-ec.dl_shopify.order`
+with load_ec_order as (
+    select distinct
+        order_id
+        , customer_id
+        , created_at
+        , total_price
+    from
+        `chocozap-ec.dl_shopify.order`
 )
 
 , load_customer as (
@@ -14,6 +13,7 @@ load_ec_order as (
     from `chocozap-ec.dl_shopify.customer_*`
     where num_orders != 0
 )
+
 , join_customers as (
   SELECT 
     ec_order.total_price
@@ -38,6 +38,7 @@ load_ec_order as (
     ) as choco_customer
     on ec_customer.email = choco_customer.mail_address
 )
+
 , calc_price as (
   select 
     year
@@ -47,9 +48,10 @@ load_ec_order as (
     , sum(total_price) as price
     , count(total_price) as num_order
   from join_customers
-  where gender <> 'その他'
+  where gender != 'その他'
   group by year, month, gender, round_age
 )
+
 , calc_gender_total as (
   select 
     year
@@ -59,9 +61,10 @@ load_ec_order as (
     , sum(total_price) as price
     , count(total_price) as num_order
   from join_customers
-  where gender <> 'その他'
+  where gender != 'その他'
   group by year, month, round_age
 )
+
 , calc_age_total as (
   select 
     year
@@ -71,9 +74,10 @@ load_ec_order as (
     , sum(total_price) as price
     , count(total_price) as num_order
   from join_customers
-  where gender <> 'その他'
+  where gender != 'その他'
   group by year, month, gender
 )
+
 , calc_month_total as (
   select '小計' as year
     , '小計' as month
@@ -82,9 +86,10 @@ load_ec_order as (
     , sum(total_price) as price
     , count(total_price) as num_order
   from join_customers
-  where gender <> 'その他'
+  where gender != 'その他'
   group by gender, round_age
 )
+
 , calc_month_age_total as (
   select
     '小計' year
@@ -94,7 +99,7 @@ load_ec_order as (
     , sum(total_price) as price
     , count(total_price) as num_order
   from join_customers
-  where gender <> 'その他'
+  where gender != 'その他'
   group by gender
 )
 
