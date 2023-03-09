@@ -28,11 +28,11 @@ load_ec_order as (
         , if(round_age >= 70, '70以上', cast(round_age as string)) as round_age
     from
         load_ec_order as ec_order
-    INNER join (
-        select 
+    inner join (
+        select
             email
-            , customer_id 
-        from 
+            , customer_id
+        from
             load_customer
     ) as ec_customer 
     using(customer_id)
