@@ -8,10 +8,11 @@ load_ec_order as (
   from
     `chocozap-ec.dl_shopify.order`
 )
+
 , load_customer as (
-  select *
-  from `chocozap-ec.dl_shopify.customer_*`
-  where num_orders <> 0
+    select *
+    from `chocozap-ec.dl_shopify.customer_*`
+    where num_orders != 0
 )
 , join_customers as (
   SELECT 
