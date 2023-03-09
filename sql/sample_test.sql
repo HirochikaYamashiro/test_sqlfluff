@@ -26,8 +26,8 @@ load_ec_order as (
       end as gender
     , IF(round_age >= 70, '70以上', cast(round_age as string)) AS round_age
   FROM 
-    load_ec_order as ec_order
-  INNER join (select email, customer_id from load_customer) as ec_customer 
+    load_ec_order ec_order
+  INNER join (select email, customer_id from load_customer) ec_customer 
     using(customer_id)
   inner join (
       select 
@@ -88,7 +88,7 @@ load_ec_order as (
 )
 , calc_month_age_total as (
   select
-    '小計' as year
+    '小計' year
     , '小計' as month
     , gender
     , '小計' as round_age
@@ -110,10 +110,3 @@ select * from calc_month_total
 union all
 select * from calc_month_age_total
 order by gender, year, month, round_age
-
--- select 
---   *
--- from 
---   join_customers 
---     pivot(sum(amount_spent) as amount for round_age IN ('10', '20', '30', '40', '50', '60', '70', '80', '90', '100'))
--- order by gender
