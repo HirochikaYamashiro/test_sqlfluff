@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [opened, reopened]  
     branches:
-      - sql_test_dev
+      - sql_test_dev_2
     paths:
       - 'sql/**.sql'
 permissions:
@@ -29,5 +29,5 @@ jobs:
       - name: 'Show outputs (Optional)'
         shell: bash
         run: |
-          echo '${{ steps.lint-sql.outputs.sqlfluff-results }}' | jq -r '.'
+          # echo '${{ steps.lint-sql.outputs.sqlfluff-results }}' | jq -r '.'
           echo '${{ steps.lint-sql.outputs.sqlfluff-results-rdjson }}' | jq -r '.'
