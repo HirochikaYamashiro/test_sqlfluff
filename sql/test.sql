@@ -1,16 +1,16 @@
 with referral_data as (
-select
-  referred_user_id zap_id
-  ,referral_code
-  ,COUNT(*) AS uu
-FROM
-  `hgym-340203.dl_service_app_main.chocozap_referral_code_histories` AS i
-LEFT JOIN
-  `hgym-340203.dl_service_app_main.chocozap_referral_codes` AS j
-on
-  i.referral_code_id=j.id
-GROUP BY
-  1,2
+  select
+    referred_user_id zap_id
+    ,referral_code
+    ,COUNT(*) AS uu
+  FROM
+    `hgym-340203.dl_service_app_main.chocozap_referral_code_histories` AS i
+  LEFT JOIN
+    `hgym-340203.dl_service_app_main.chocozap_referral_codes` AS j
+  on
+    i.referral_code_id=j.id
+  GROUP BY
+    1,2
 )
 select
   base.*
