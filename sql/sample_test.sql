@@ -9,7 +9,8 @@ load_ec_order as (
     `chocozap-ec.dl_shopify.order`
 )
 , load_customer as (
-  select *
+  select 
+    *
   from `chocozap-ec.dl_shopify.customer_*`
   where num_orders <> 0
 )
