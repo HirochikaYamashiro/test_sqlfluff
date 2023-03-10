@@ -5,7 +5,7 @@ with referral_data as (
     ,COUNT(*) AS uu
   FROM
     `hgym-340203.dl_service_app_main.chocozap_referral_code_histories` AS i
-  LEFT JOIN
+    LEFT JOIN
     `hgym-340203.dl_service_app_main.chocozap_referral_codes` AS j
   on
     i.referral_code_id=j.id
@@ -23,3 +23,5 @@ on
   base.id = referral_data.zap_id
 where
   referral_code is not null
+LIMIT
+1000
