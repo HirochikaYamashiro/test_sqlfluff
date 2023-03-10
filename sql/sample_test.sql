@@ -37,8 +37,8 @@ load_ec_order as (
     ) as ec_customer
     on ec_order.customer_id = ec_customer.customer_id
     inner join (
-        SELECT 
-            mail_address 
+        select
+            mail_address
             , gender
             , round(FLOOR(DATE_DIFF(CURRENT_DATE('Asia/Tokyo'), birthday, DAY)/3650))*10 as round_age
         FROM `hgym-340203.hacomono_chocozap.会員`
