@@ -67,13 +67,13 @@ load_ec_order as (
         , round_age
         , sum(total_price) as price
         , count(total_price) as num_order
-    FROM join_customers
+    from join_customers
     where gender != 'その他'
     group by year, month, round_age
 )
 
 , calc_age_total as (
-    SELECT
+    select
         year
         , month
         , gender
