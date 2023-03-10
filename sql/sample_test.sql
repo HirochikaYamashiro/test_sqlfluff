@@ -1,6 +1,6 @@
 with
 load_ec_order as (
-    SELECT distinct
+    select distinct
         order_id
         , customer_id
         , created_at
