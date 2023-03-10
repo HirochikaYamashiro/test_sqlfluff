@@ -29,12 +29,12 @@ load_ec_order as (
     from
         load_ec_order as ec_order
     inner join (
-        SELECT
+        select
             email
             , customer_id
-        FROM
+        from
             load_customer
-    ) as ec_customer 
+    ) as ec_customer
     on ec_order.customer_id = ec_customer.customer_id
     inner join (
         SELECT 
