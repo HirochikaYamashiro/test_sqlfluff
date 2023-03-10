@@ -18,15 +18,15 @@ load_ec_order as (
 , join_customers as (
     select
         ec_order.total_price
-        , cast(extract(month FROM ec_order.created_at) as string) as month
-        , cast(extract(year FROM ec_order.created_at) as string) as year
+        , cast(extract(month from ec_order.created_at) as string) as month
+        , cast(extract(year from ec_order.created_at) as string) as year
         , case gender
             when 1 then '男性'
             when 2 then '女性'
             else 'その他'
         end as gender
         , if(round_age >= 70, '70以上', cast(round_age as string)) as round_age
-    FROM
+    from
         load_ec_order as ec_order
     inner join (
         SELECT
