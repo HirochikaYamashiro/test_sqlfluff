@@ -5,18 +5,18 @@ load_ec_order as (
         , customer_id
         , created_at
         , total_price
-    FROM
+    from
         `chocozap-ec.dl_shopify.order`
 )
 
 , load_customer as (
-    SELECT *
-    FROM `chocozap-ec.dl_shopify.customer_*`
+    select *
+    from `chocozap-ec.dl_shopify.customer_*`
     where num_orders != 0
 )
 
 , join_customers as (
-    SELECT
+    select
         ec_order.total_price
         , cast(extract(month FROM ec_order.created_at) as string) as month
         , cast(extract(year FROM ec_order.created_at) as string) as year
