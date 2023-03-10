@@ -34,33 +34,33 @@ load_ec_order as (
             , customer_id
         from
             load_customer
-    ) as ec_customer 
+    ) as ec_customer
     on ec_order.customer_id = ec_customer.customer_id
     inner join (
-        select 
-            mail_address 
+        select
+            mail_address
             , gender
             , round(FLOOR(DATE_DIFF(CURRENT_DATE('Asia/Tokyo'), birthday, DAY)/3650))*10 as round_age
-        from `hgym-340203.hacomono_chocozap.会員`
+        FROM `hgym-340203.hacomono_chocozap.会員`
     ) as choco_customer
     on ec_customer.email = choco_customer.mail_address
 )
 
 , calc_price as (
-    select
+    SELECT
         year
         , month
         , gender
         , round_age
         , sum(total_price) as price
         , count(total_price) as num_order
-    from join_customers
+    FROM join_customers
     where gender != 'その他'
     group by year, month, gender, round_age
 )
 
 , calc_gender_total as (
-    select
+    SELECT
         year
         , month
         , '小計' as gender
@@ -80,45 +80,45 @@ load_ec_order as (
         , '小計' as round_age
         , sum(total_price) as price
         , count(total_price) as num_order
-    from join_customers
+    FROM join_customers
     where gender != 'その他'
     group by year, month, gender
 )
 
 , calc_month_total as (
-    select
+    SELECT
         '小計' as year
         , '小計' as month
         , gender
         , round_age
         , sum(total_price) as price
         , count(total_price) as num_order
-    from join_customers
+    FROM join_customers
     where gender != 'その他'
     group by gender, round_age
 )
 
 , calc_month_age_total as (
-    select
+    SELECT
         '小計' as year
         , '小計' as month
         , gender
         , '小計' as round_age
         , sum(total_price) as price
         , count(total_price) as num_order
-    from join_customers
+    FROM join_customers
     where gender != 'その他'
     group by gender
 )
 
 -- choco ECの売り上げを元に年代、性別でそれぞれいくら(金額)注文したのか集計してほしい
-select * from calc_price
-union all
-select * from calc_gender_total
-union all
-select * from calc_age_total
-union all
-select * from calc_month_total
-union all
-select * from calc_month_age_total
+SELECT * FROM calc_price
+UNION ALL
+SELECT * FROM calc_gender_total
+UNION ALL
+SELECT * FROM calc_age_total
+UNION ALL
+SELECT * FROM calc_month_total
+UNION ALL
+SELECT * FROM calc_month_age_total
 order by gender, year, month, round_age
